@@ -1,6 +1,6 @@
 import os
 import streamlit as st
-from langchain_openai import ChatOpenAI
+from langchain.chat_models import ChatOpenAI
 
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
