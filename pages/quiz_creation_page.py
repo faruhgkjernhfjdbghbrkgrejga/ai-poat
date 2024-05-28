@@ -492,37 +492,37 @@ def quiz_creation_page():
                     if st.button('퀴즈 풀기'):
                         st.switch_page("pages/quiz_solve_page.py")
 
-            elif topic is not None:
-                if st.button('문제 생성 하기'):
-                    with st.spinner('퀴즈를 생성 중입니다...'):
-                        try:
-                            vector_search = MongoDBAtlasVectorSearch.from_connection_string(
-                                "mongodb+srv://acm41th:vCcYRo8b4hsWJkUj@cluster0.ctxcrvl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-                                "database.collection",
-                                OpenAIEmbeddings(model="gpt-3.5-turbo-0125"),
-                                index_name="vector_index"
-                            )
+            # elif topic is not None:
+            #     if st.button('문제 생성 하기'):
+            #         with st.spinner('퀴즈를 생성 중입니다...'):
+            #             try:
+            #                 vector_search = MongoDBAtlasVectorSearch.from_connection_string(
+            #                     "mongodb+srv://acm41th:vCcYRo8b4hsWJkUj@cluster0.ctxcrvl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+            #                     "database.collection",
+            #                     OpenAIEmbeddings(model="gpt-3.5-turbo-0125"),
+            #                     index_name="vector_index"
+            #                 )
 
-                            quiz_questions = []
-                            for _ in range(num_quizzes):
-                                quiz = generate_quiz(quiz_type, topic, vector_search)
-                                if quiz:
-                                    quiz_questions.append(quiz)
+            #                 quiz_questions = []
+            #                 for _ in range(num_quizzes):
+            #                     quiz = generate_quiz(quiz_type, topic, vector_search)
+            #                     if quiz:
+            #                         quiz_questions.append(quiz)
 
-                            st.session_state['quizs'] = quiz_questions
-                            st.session_state.selected_page = "퀴즈 풀이"
-                            st.session_state.selected_type = quiz_type
-                            st.session_state.selected_num = num_quizzes
+            #                 st.session_state['quizs'] = quiz_questions
+            #                 st.session_state.selected_page = "퀴즈 풀이"
+            #                 st.session_state.selected_type = quiz_type
+            #                 st.session_state.selected_num = num_quizzes
 
-                            st.success('퀴즈 생성이 완료되었습니다!')
-                            st.write(quiz_questions)
-                            st.session_state['quiz_created'] = True
-                        except pymongo.errors.OperationFailure as e:
-                            st.error(f"MongoDB 연결 오류: {e}")
+            #                 st.success('퀴즈 생성이 완료되었습니다!')
+            #                 st.write(quiz_questions)
+            #                 st.session_state['quiz_created'] = True
+            #             except pymongo.errors.OperationFailure as e:
+            #                 st.error(f"MongoDB 연결 오류: {e}")
 
-            if st.session_state.get('quiz_created', False):
-                if st.button('퀴즈 풀기'):
-                    st.switch_page("pages/quiz_solve_page.py")
+            # if st.session_state.get('quiz_created', False):
+            #     if st.button('퀴즈 풀기'):
+            #         st.switch_page("pages/quiz_solve_page.py")
 
 if __name__ == "__main__":
     quiz_creation_page()
