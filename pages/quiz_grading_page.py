@@ -30,8 +30,8 @@ from pymongo import MongoClient
 import pymongo
 import json
 
-# OpenAI API 키 설정
-openai.api_key = 'your_openai_api_key'
+# # OpenAI API 키 설정
+# openai.api_key = 'your_openai_api_key'
 
 def get_explanation(quiz, correct_answer):
     prompt = f"문제: {quiz}\n정답: {correct_answer}\n이 문제의 해설을 작성해 주세요."
