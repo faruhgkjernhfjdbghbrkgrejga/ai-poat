@@ -94,10 +94,9 @@ def quiz_solve_page():
     placeholder = st.empty()
     
     # 세션 상태 초기화
-    if 'number' not in st.session_state:
-        st.session_state.number = 0
+    st.session_state.number = 0  # 페이지가 열렸을 때 퀴즈 번호를 1번으로 초기화
     if 'user_selected_answers' not in st.session_state:
-        st.session_state.user_selected_answers = []  # 사용자 ���택 답변을 저장할 배열 초기화
+        st.session_state.user_selected_answers = []  # 사용자 선택 답변을 저장할 배열 초기화
     if 'correct_answers' not in st.session_state:
         st.session_state.correct_answers = []  # 정답 여부를 저장할 배열 초기화
     if 'canswer' not in st.session_state:
@@ -144,6 +143,8 @@ def quiz_solve_page():
                     if st.button("이전", key=f"prev{j}"):
                         if st.session_state.number > 0:
                             st.session_state.number -= 1  # 이전 문제로 이동
+                        else:
+                            st.warning("첫 번째 문제입니다.")
                 with col2:
                     if st.button("다음", key=f"next{j}"):
                         if res['correct_answer'] == st.session_state.canswer or res['correct_answer'] == st.session_state.uanswer:
@@ -152,7 +153,10 @@ def quiz_solve_page():
                         else:
                             st.error("오답입니다.")
                             st.session_state.correct_answers.append(False)
-                        st.session_state.number += 1  # 다음 문제로 이동
+                        if st.session_state.number < len(st.session_state.quizs) - 1:
+                            st.session_state.number += 1  # 다음 문제로 이동
+                        else:
+                            st.warning("마지막 문제입니다.")
                 with col3:
                     if st.button('결과 확인', key="final_result"):
                         st.switch_page("pages/quiz_grading_page.py")
