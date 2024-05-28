@@ -2,12 +2,13 @@ import streamlit as st
 import openai
 import json
 
-
+# OpenAI API 키 설정
+openai.api_key = 'your_openai_api_key'
 
 def get_explanation(quiz, correct_answer):
     prompt = f"문제: {quiz}\n정답: {correct_answer}\n이 문제의 해설을 작성해 주세요."
     response = openai.Completion.create(
-        engine="text-davinci-003",
+        model="text-davinci-003",
         prompt=prompt,
         max_tokens=150
     )
