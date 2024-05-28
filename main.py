@@ -1,20 +1,21 @@
-import os
 import streamlit as st
-from langchain.chat_models import ChatOpenAI
+import quiz_creation_page
+import quiz_solve_page
+import quiz_grading_page
+import sign
 
-openai_api_key = os.getenv("OPENAI_API_KEY")
+def main():
+    selected_page = "퀴즈 생성"
+    #showSidebarNavigation = "false"
+    # 선택된 페이지 표시
+    if selected_page == "퀴즈 생성":
+        quiz_creation_page.quiz_creation_page()
+    elif selected_page == "퀴즈 풀이":
+        quiz_solve_page.quiz_solve_page()
+    elif selected_page == "퀴즈 채점":
+        quiz_grading_page.quiz_grading_page()
+    elif selected_page == "로그인":
+        sign.sign()
 
-chat_model = ChatOpenAI(api_key=openai_api_key)
-
-st.title('인공지능 시인')
-
-content = st.text_input('주제')
-
-if st.button('시 작성'):
-    with st.spinner('시 쓰는 중'):
-        result = chat_model.predict(content + "에 대한 시를 써줘")
-        st.write(result)
-
-
-
-
+if __name__ == "__main__":
+    main()
