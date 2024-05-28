@@ -32,10 +32,11 @@ def quiz_grading_page():
     graded_answers = grade_quiz_answers(user_answers, correct_answers)
     st.title("퀴즈 채점 결과")
     total_score = 0
+    res = json.loads(question["answer"])
 
     for i, question in enumerate(questions):
         st.subheader(f"문제 {i + 1}")
-        st.write(f"문제: {question['quiz']}")
+        st.write(f"**{res['quiz']}**")
         
         if 'options1' in question:
             st.write(f"1. {question['options1']}")
@@ -71,3 +72,13 @@ def quiz_grading_page():
 
 if __name__ == "__main__":
     quiz_grading_page()
+
+# res = json.loads(question["answer"])
+#         if st.session_state.number == j:
+#             with placeholder.container():
+#                 st.header(f"문제 {j+1}")
+#                 st.write(f"문제 번호: {st.session_state.number + 1}")
+#                 st.markdown("---")
+                
+#                 st.write(f"**{res['quiz']}**")
+#                 st.write("\n")
