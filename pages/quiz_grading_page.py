@@ -58,7 +58,7 @@ def get_explanation(quiz, correct_answer):
     explanation = response.choices[0].message['content'].strip()
     return explanation
 
-def quiz_review_page():
+def quiz_grading_page():
     st.title("퀴즈 리뷰 페이지")
     st.markdown("---")
     
