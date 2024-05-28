@@ -98,7 +98,7 @@ def quiz_grading_page():
             st.switch_page("pages/quiz_solve_page.py")
 
 if __name__ == "__main__":
-    quiz_review_page()
+    quiz_grading_page()
 
 
 
