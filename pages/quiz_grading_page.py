@@ -2,15 +2,20 @@ import streamlit as st
 import openai
 import json
 
+# OpenAI API 키 설정
+openai.api_key = 'your_openai_api_key'
 
 def get_explanation(quiz, correct_answer):
     prompt = f"문제: {quiz}\n정답: {correct_answer}\n이 문제의 해설을 작성해 주세요."
-    response = openai.Completion.create(
-        model="text-davinci-003",
-        prompt=prompt,
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": prompt}
+        ],
         max_tokens=150
     )
-    explanation = response.choices[0].text.strip()
+    explanation = response.choices[0].message['content'].strip()
     return explanation
 
 def quiz_review_page():
